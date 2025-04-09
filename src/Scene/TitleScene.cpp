@@ -54,6 +54,10 @@ int CTitleScene::Loop()
 //‰Šú‰»
 void CTitleScene::Init()
 {
+
+	m_startTime = 0;
+	m_NowTime = 0;
+
 }
 
 
@@ -67,6 +71,7 @@ void CTitleScene::Exit()
 //ƒ[ƒh
 void CTitleScene::Load()
 {
+	m_startTime = GetNowCount();	// ‹N“®‚µ‚Ä‚©‚ç‚ÌŽžŠÔ‚ðŽæ“¾
 }
 
 
@@ -74,6 +79,8 @@ void CTitleScene::Load()
 void CTitleScene::Draw()
 {
 	CDebugString::GetInstance()->Draw();
+
+	DrawBox(150, 0, 20, 500, COLOR, true, 0);
 }
 
 

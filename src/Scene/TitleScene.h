@@ -16,6 +16,9 @@ private:
 
 	tagTITLE_SCENE eSceneID;
 
+	int m_startTime;	// 起動してからの時間
+	int m_NowTime;		// 現在の時間
+
 public:
 	//コンストラクタ・デストラクタ
 	CTitleScene();
