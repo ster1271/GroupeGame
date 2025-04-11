@@ -1,12 +1,12 @@
 #include "Map.h"
 
-const char MAP_TIP_PATH01[128] = { "data/play/map/MapTip01.png" };
-const char MAP_TIP_PATH02[128] = { "data/play/map/MapTip02.png" };
+const float BASE_VALUE = 96.0f;
 
 //コンストラクタ
 CMap::CMap()
 {
-	memset(&MapTipList, -1, sizeof(vector<MapTipInfo>));
+	fp = nullptr;
+	MapTipList.clear();
 }
 
 //デストラクタ
@@ -19,22 +19,21 @@ CMap::~CMap()
 //初期化
 void CMap::Init()
 {
-
+	fp = nullptr;
+	MapTipList.clear();
 }
 
 //後処理
 void CMap::Exit()
 {
-
+	fp = nullptr;
+	MapTipList.clear();
 }
 
 //読み込み
-void CMap::Load()
+void CMap::Load(MAP_TYPE id)
 {
-	for (int Index = 0; Index < MAPTIP_TYPE_NUM; Index++)
-	{
-
-	}
+	LoadMap(id);
 }
 
 //情報更新
@@ -52,12 +51,64 @@ void CMap::Step()
 //描画
 void CMap::Draw()
 {
-
+	for (int MapIndex = 0; MapIndex != MapTipList.size(); MapIndex++)
+	{
+		DrawGraph(MapTipList[MapIndex].cPos.x, MapTipList[MapIndex].cPos.y,
+			MapTipList[MapIndex].iHndl, false);
+	}
 }
 
 
 //マップの読み込み
 bool CMap::LoadMap(MAP_TYPE id)
 {
+	MapTipInfo tmpInfo;
 
+	fopen_s(&fp, MapFilePath[id], "r");
+
+	if (fp != nullptr)
+	{
+		int FileIndexX = 0;
+		int FileIndexY = 0;
+
+		while(true)
+		{
+			// 数値部分を読み込む
+			char tmp = fgetc(fp);
+			int FileNum = tmp - '0';
+
+			//必要な情報を格納
+			tmpInfo.cPos = VGet((float)FileIndexX * MAP_TIP_SIZE.x, BASE_VALUE + (float)FileIndexY * MAP_TIP_SIZE.y, MAP_TIP_SIZE.z);
+			tmpInfo.cRotate = VECTOR_ZERO;
+			tmpInfo.iHndl = LoadGraph(MapTipFilePath[FileNum]);
+
+			//リストに格納
+			MapTipList.push_back(tmpInfo);
+
+
+			FileIndexX++;
+
+			//「,」を飛ばすために読み込みを実行
+			tmp = fgetc(fp);
+
+			//EOFの場合は読み込み終了
+			if (tmp == EOF)
+			{
+				break;
+			}
+
+			// 改行コードの場合は保存先を変更する
+			if (tmp == '\n')
+			{
+				FileIndexY++;
+				FileIndexX = 0;
+			}
+		}
+		fclose(fp);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

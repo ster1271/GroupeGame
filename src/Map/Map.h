@@ -3,14 +3,22 @@
 
 const VECTOR MAP_TIP_SIZE = VGet(32.0f, 32.0f, 0.0f);
 
-//マップの種類
+//マップデータの種類
 const enum MAP_TYPE
 {
-	MAP_TYPE_00,
+	MAP_TYPE_00,		//ステージ0(テスト)
+
 	
-	MAP_MAX_NUM,
+	MAP_MAX_NUM,		//ステージ最大数
 };
 
+//マップデータのファイルパス
+static const char MapFilePath[MAP_MAX_NUM][256]
+{
+	"data/play/map/Map00.txt",
+};
+
+//マップ素材データの種類
 const enum MAPTIP_TYPE
 {
 	MAPTIP_TYPE_00,
@@ -18,6 +26,14 @@ const enum MAPTIP_TYPE
 
 	MAPTIP_TYPE_NUM,
 };
+
+//マップ素材データのファイルパス
+static const char MapTipFilePath[MAPTIP_TYPE_NUM][256]
+{
+	"data/play/map/MapTip01.png",
+	"data/play/map/MapTip02.png",
+};
+
 
 class CMap
 {
@@ -28,7 +44,6 @@ private:
 	{
 		VECTOR cPos;
 		VECTOR cRotate;
-		VECTOR cSize;
 		int iHndl;
 	};
 
@@ -46,7 +61,8 @@ public:
 	void Exit();
 
 	//読み込み
-	void Load();
+	//引数：マップデータの種類
+	void Load(MAP_TYPE id);
 
 	//情報更新
 	void UpData();
