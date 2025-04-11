@@ -71,6 +71,9 @@ void CPlayScene::Exit()
 //ÉfÅ[É^ì«Ç›çûÇ›
 void CPlayScene::Load()
 {
+	for (int index = 0; index < 2; index++) {
+		player[index].Load();
+	}
 }
 
 
@@ -81,6 +84,9 @@ void CPlayScene::Draw()
 
 	for (int index = 0; index < 2; index++) {
 		player[index].Draw();
+	}
+	for (int index = 0; index < 2; index++) {
+		player[index].UiDraw();
 	}
 }
 
