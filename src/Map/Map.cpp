@@ -6,10 +6,7 @@ const char MAP_TIP_PATH02[128] = { "data/play/map/MapTip02.png" };
 //コンストラクタ
 CMap::CMap()
 {
-	memset(&cPos, -1, sizeof(VECTOR));
-	memset(&cRotate, -1, sizeof(VECTOR));
-
-	iHndl = -1;
+	memset(&MapTipList, -1, sizeof(vector<MapTipInfo>));
 }
 
 //デストラクタ
@@ -34,7 +31,10 @@ void CMap::Exit()
 //読み込み
 void CMap::Load()
 {
+	for (int Index = 0; Index < MAPTIP_TYPE_NUM; Index++)
+	{
 
+	}
 }
 
 //情報更新
@@ -51,6 +51,13 @@ void CMap::Step()
 
 //描画
 void CMap::Draw()
+{
+
+}
+
+
+//マップの読み込み
+bool CMap::LoadMap(MAP_TYPE id)
 {
 
 }
