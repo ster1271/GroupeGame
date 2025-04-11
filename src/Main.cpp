@@ -4,6 +4,7 @@
 #include "DrawFont/DrawFont.h"
 #include "DrawFPS/fps.h"
 #include "Mouse/Mouse.h"
+#include "Input/PadInput.h"
 
 
 // Win32アプリケーションは WinMain関数 から始まる
@@ -44,6 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	CInput::InitInput();
 	//ゲームパッド初期化	
 	CGamePad::InitGamePad();
+	PadInput::Init();
 	//マウス初期化
 	CMouse::InitMouse();
 	//フォントデータ初期化
@@ -87,9 +89,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			CInput::StepInput();
 			//ゲームパッド情報更新
 			CGamePad::StepGamePad();
+			PadInput::Step();
 			//マウス情報更新
 			CMouse::StepMouse();
-
+			
 			//エスケープキーまたはスタートボタンが押されたら終了
 			if (CInput::IsKeyPush(KEY_INPUT_ESCAPE) || CGamePad::IsPadPush(DX_INPUT_PAD1, BUTTON_BACK))
 				break;

@@ -1,5 +1,6 @@
 #pragma once
 #include "../Common.h"
+#include "../Player/player.h"
 
 //プレイシーンクラス
 class CPlayScene
@@ -17,6 +18,8 @@ private:
 
 	
 	tagPLAY_SCENE eSceneID;
+
+	Player player[2];
 
 public:
 	//コンストラクタ・デストラクタ
