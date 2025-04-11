@@ -5,6 +5,13 @@
 //コンストラクタ
 CTitleScene::CTitleScene()
 {
+	m_startTime = 0;
+	m_NowTime = 0;
+	m_alpha = 0;
+	m_alpha2 = 0;
+	m_BlinkFlag = false;
+	m_handle = -1;
+
 	//とりあえず初期化に移動させる
 	eSceneID = TITLE_SCENE_INIT;
 }
@@ -61,6 +68,7 @@ void CTitleScene::Init()
 	m_alpha = 0;
 	m_alpha2 = 0;
 	m_BlinkFlag = false;
+	m_handle = -1;
 
 }
 
@@ -76,6 +84,8 @@ void CTitleScene::Exit()
 void CTitleScene::Load()
 {
 	m_startTime = GetNowCount();	// 起動してからの時間を取得
+	m_handle = LoadGraph("data/title/フライゴン.png");
+
 }
 
 
@@ -84,14 +94,14 @@ void CTitleScene::Draw()
 {
 	CDebugString::GetInstance()->Draw();
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA,m_alpha);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA,(int)m_alpha);
 
 	DrawBox(150, 0, 20, 500, COLOR, true, 0);
 
 
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, m_alpha);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, (int)m_alpha);
 
-	ImageBlink(&m_alpha2,2,&m_BlinkFlag,30,5);
+	ImageBlink(m_handle, &m_alpha2, 2, &m_BlinkFlag, 30, 5);
 
 
 	DrawBox(200, 0, 300, 500, COLOR, true, 0);
@@ -118,14 +128,19 @@ void CTitleScene::UpData()
 {
 }
 
-void CTitleScene::ImageBlink(float *p_Alpha, float BlinkSpeed, bool *p_BlinkFlag ,float AddPace,float SubPace)
+void CTitleScene::ImageMove(float PositionX, float PositionY, int time, float Radius)
 {
 
-	int Alpha = *p_Alpha;
-	int BlinkFlag = *p_BlinkFlag;
+}
+
+void CTitleScene::ImageBlink(int Handle, float *p_Alpha, float BlinkSpeed, bool *p_BlinkFlag ,float AddPace,float SubPace)
+{
+
+	float Alpha = *p_Alpha;
+	float BlinkFlag = *p_BlinkFlag;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)Alpha);
-	DrawBox(350, 0, 500, 500, COLOR, true, 0);
+	DrawGraph(350, 0, Handle, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, (int)Alpha);
 
 	if (!BlinkFlag)
