@@ -1,5 +1,8 @@
 #include "Map.h"
 
+const char MAP_TIP_PATH01[128] = { "data/play/map/MapTip01.png" };
+const char MAP_TIP_PATH02[128] = { "data/play/map/MapTip02.png" };
+
 //コンストラクタ
 CMap::CMap()
 {
