@@ -1,5 +1,6 @@
 #include "TitleScene.h"
 
+#define ALPHA_MAX (255) // アルファ値の最大値
 
 //コンストラクタ
 CTitleScene::CTitleScene()
@@ -57,6 +58,9 @@ void CTitleScene::Init()
 
 	m_startTime = 0;
 	m_NowTime = 0;
+	m_alpha = 0;
+	m_alpha2 = 0;
+	m_BlinkFlag = false;
 
 }
 
@@ -80,7 +84,20 @@ void CTitleScene::Draw()
 {
 	CDebugString::GetInstance()->Draw();
 
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA,m_alpha);
+
 	DrawBox(150, 0, 20, 500, COLOR, true, 0);
+
+
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, m_alpha);
+
+	ImageBlink(&m_alpha2,2,&m_BlinkFlag,30,5);
+
+
+	DrawBox(200, 0, 300, 500, COLOR, true, 0);
+
+	if(m_alpha < 255)
+	m_alpha++;
 }
 
 
@@ -99,5 +116,45 @@ void CTitleScene::Step()
 //情報更新
 void CTitleScene::UpData()
 {
+}
+
+void CTitleScene::ImageBlink(float *p_Alpha, float BlinkSpeed, bool *p_BlinkFlag ,float AddPace,float SubPace)
+{
+
+	int Alpha = *p_Alpha;
+	int BlinkFlag = *p_BlinkFlag;
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)Alpha);
+	DrawBox(350, 0, 500, 500, COLOR, true, 0);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, (int)Alpha);
+
+	if (!BlinkFlag)
+	{
+	
+		Alpha += BlinkSpeed + AddPace;
+
+		if ((int)Alpha >= ALPHA_MAX)
+		{
+			Alpha = ALPHA_MAX;
+			BlinkFlag = true;
+
+		}
+	}
+
+	else if (BlinkFlag)
+	{
+		Alpha -= BlinkSpeed + SubPace;
+
+		if (Alpha <= 0)
+		{
+			Alpha = 0;
+			BlinkFlag = false;
+
+		}
+	}
+
+	*p_Alpha = Alpha;
+	*p_BlinkFlag = BlinkFlag;
+
 }
 
