@@ -52,6 +52,12 @@ int CPlayScene::Loop()
 //初期化
 void CPlayScene::Init()
 {	
+
+	for (int index = 0; index < 2; index++) {
+		player[index].SetPlayerP(index);
+		player[index].Init();
+	}
+
 }
 
 
@@ -72,6 +78,10 @@ void CPlayScene::Load()
 void CPlayScene::Draw()
 {
 	CDebugString::GetInstance()->Draw();
+
+	for (int index = 0; index < 2; index++) {
+		player[index].Draw();
+	}
 }
 
 
@@ -84,7 +94,10 @@ void CPlayScene::Step()
 		eSceneID = PLAY_SCENE_END;
 	}
 
-	
+	for (int index = 0; index < 2; index++) {
+		player[index].Step();
+	}
+
 	CDebugString::GetInstance()->AddString(0, 0, "プレイシーン");
 }
 
