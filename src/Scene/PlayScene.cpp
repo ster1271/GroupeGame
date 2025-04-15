@@ -52,7 +52,7 @@ int CPlayScene::Loop()
 //初期化
 void CPlayScene::Init()
 {	
-
+	cMap.Init();
 	for (int index = 0; index < 2; index++) {
 		player[index].SetPlayerP(index);
 		player[index].Init();
@@ -64,6 +64,7 @@ void CPlayScene::Init()
 //終了処理
 void CPlayScene::Exit()
 {
+	cMap.Exit();
 	eSceneID = PLAY_SCENE_INIT;
 }
 
@@ -71,6 +72,7 @@ void CPlayScene::Exit()
 //データ読み込み
 void CPlayScene::Load()
 {
+	cMap.Load(MAP_TYPE_00);
 	for (int index = 0; index < 2; index++) {
 		player[index].Load();
 	}
@@ -81,7 +83,7 @@ void CPlayScene::Load()
 void CPlayScene::Draw()
 {
 	CDebugString::GetInstance()->Draw();
-
+	cMap.Draw();
 	for (int index = 0; index < 2; index++) {
 		player[index].Draw();
 	}
