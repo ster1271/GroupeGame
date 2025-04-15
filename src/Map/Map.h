@@ -23,6 +23,7 @@ const enum MAPTIP_TYPE
 {
 	MAPTIP_TYPE_00,
 	MAPTIP_TYPE_01,
+	MAPTIP_TYPE_02,
 
 	MAPTIP_TYPE_NUM,
 };
@@ -30,6 +31,7 @@ const enum MAPTIP_TYPE
 //マップ素材データのファイルパス
 static const char MapTipFilePath[MAPTIP_TYPE_NUM][256]
 {
+	"data/play/map/MapTip00.png",
 	"data/play/map/MapTip01.png",
 	"data/play/map/MapTip02.png",
 };
