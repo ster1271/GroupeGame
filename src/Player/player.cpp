@@ -7,6 +7,7 @@
 //プレイヤーコンストラクタ
 Player::Player() {
 
+	HP = -1;
 	speed = -1.0f;
 	playerIndex = -1;
 	imageHandle=-1;
@@ -35,6 +36,7 @@ Player::Player() {
 //プレイヤー初期化
 void Player::Init() {
 	
+	HP = PLAYER_MAX_HP;
 	bulletSpeed = PLAYER_BULLET_SPEED;
 	bulletCount = PLAYER_BULLET_MAX;
 	bulletReloadCount = 0;
@@ -60,6 +62,32 @@ void Player::Step() {
 	//弾の処理
 	Bullet();
 
+	//最低限の座標制限
+	if (pos.x <= 16.0f) {
+		pos.x = 16.0f;
+	}
+	if (pos.x >= 1264.0f) {
+		pos.x = 1264.0f;
+	}
+	if (pos.y <= 105.0f) {
+		pos.y = 105.0f;
+	}
+	if (pos.y >= 704.0f) {
+		pos.y = 704.0f;
+	}
+
+	if (aimPos.x <= 16.0f) {
+		aimPos.x = 16.0f;
+	}
+	if (aimPos.x >= 1264.0f) {
+		aimPos.x = 1264.0f;
+	}
+	if (aimPos.y <= 105.0f) {
+		aimPos.y = 105.0f;
+	}
+	if (aimPos.y >= 704.0f) {
+		aimPos.y = 704.0f;
+	}
 }
 
 
@@ -67,12 +95,12 @@ void Player::Step() {
 void Player::Draw() {
 
 	DrawCircle((int)pos.x, (int)pos.y, 16, 255);
-	DrawLine((int)pos.x, (int)pos.y, pos.x + 50 * cosf(rot), pos.y - 50 * sinf(rot), 2222232, 4);
+	DrawLine((int)pos.x, (int)pos.y, (int)(pos.x + 50.0f * cosf(rot)), (int)(pos.y - 50.0f * sinf(rot)), 2222232, 4);
 
 	//弾の描画
 	for (int index = 0; index < PLAYER_BULLET_MAX; index++) {
 		if (!bulletUseFlag[index]) { continue; }
-		DrawRotaGraph(bulletPos[index].x, bulletPos[index].y, 1.0, -bulletRot[index]+ DEG_TO_RAD(90), bulletHandle, true);
+		DrawRotaGraph((int)bulletPos[index].x, (int)bulletPos[index].y, 1.0, -bulletRot[index]+ DEG_TO_RAD(90), bulletHandle, true);
 	}
 }
 
@@ -83,7 +111,7 @@ void Player::UiDraw() {
 
 	//エイムUI
 	if (PadInput::Keep(playerIndex, XINPUT_BUTTON_LEFT_SHOULDER)) {
-		DrawRotaGraph(aimPos.x, aimPos.y, 1.0, 0.0, aimHandle, true);
+		DrawRotaGraph((int)aimPos.x, (int)aimPos.y, 1.0, 0.0, aimHandle, true);
 	}
 
 	int num;
@@ -91,10 +119,16 @@ void Player::UiDraw() {
 	if (playerIndex == 0) {
 		num = PLAYER_UI_BULLET_X_1;
 		DrawBox(0, 0, SCREEN_SIZE_X / 2, 90, GetColor(255, 150, 150), true);
+		//HP
+		DrawBox(570, 8, 570 - PLAYER_MAX_HP * 5, 42, GetColor(0, 0, 0), true);
+		DrawBox(570, 8, 570 - HP * 5, 42, GetColor(0, 255, 0), true);
 	}
 	else {
 		num = PLAYER_UI_BULLET_X_2;
 		DrawBox(SCREEN_SIZE_X / 2, 0, SCREEN_SIZE_X, 90, GetColor(150, 150, 225), true);
+		//HP
+		DrawBox(1210, 8, 1210 - PLAYER_MAX_HP * 5, 42, GetColor(0, 0, 0), true);
+		DrawBox(1210, 8, 1210 - HP * 5, 42, GetColor(0, 255, 0), true);
 	}
 
 	//リロードUI
