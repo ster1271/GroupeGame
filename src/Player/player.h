@@ -3,8 +3,9 @@
 
 
 //プレイヤー
+constexpr int	PLAYER_MAX_HP = 100;			//プレイヤー最大HP
 constexpr float PLAYER_SPEED = 3.7f;			//プレイヤー速度
-constexpr float PLAYER_SLOW_SPEED = 2.8f;		//プレイヤー速度
+constexpr float PLAYER_SLOW_SPEED = 2.5f;		//プレイヤーエイム時速度
 
 //エイム
 constexpr float AIM_SPEED = 8.0f;				//エイムカーソルの移動速度
@@ -30,6 +31,8 @@ private:
 	//プレイヤー
 	int		imageHandle;			//プレイヤー画像
 	int		playerIndex;			//プレイヤーのP
+	int		HP;						//プレイヤー体力
+	int		def;					//プレイヤー防御力
 	int		size;					//プレイヤーサイズ
 	VECTOR	pos;					//プレイヤー座標
 	float	speed;					//プレイヤー速度
@@ -37,7 +40,7 @@ private:
 	float	radian;					//プレイヤーの移動方向
 	
 	//エイム関係
-	int aimHandle;
+	int aimHandle;			//エイムの画像
 	VECTOR aimPos;			//エイムの座標
 	float aimRad;			//エイムの角度
 
