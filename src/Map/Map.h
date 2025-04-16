@@ -4,7 +4,7 @@
 const VECTOR MAP_TIP_SIZE = VGet(32.0f, 32.0f, 0.0f);
 
 //マップデータの種類
-const enum MAP_TYPE
+enum MAP_TYPE
 {
 	MAP_TYPE_00,		//ステージ0(テスト)
 
