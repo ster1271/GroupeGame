@@ -6,9 +6,10 @@ const VECTOR MAP_TIP_SIZE = VGet(32.0f, 32.0f, 0.0f);
 //マップデータの種類
 enum MAP_TYPE
 {
-	MAP_TYPE_00,		//ステージ0(テスト)
+	MAP_TYPE_00,		//ステージ0
+	MAP_TYPE_01,		//ステージ1
+	MAP_TYPE_02,		//ステージ2
 
-	
 	MAP_MAX_NUM,		//ステージ最大数
 };
 
@@ -16,6 +17,8 @@ enum MAP_TYPE
 static const char MapFilePath[MAP_MAX_NUM][256]
 {
 	"data/play/map/Map00.txt",
+	"data/play/map/Map01.txt",
+	"data/play/map/Map02.txt",
 };
 
 //マップ素材データの種類
