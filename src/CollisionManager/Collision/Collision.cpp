@@ -70,15 +70,18 @@ bool CCollision::CheckHitSphereToSphere(VECTOR APos, float ASpereR, VECTOR BPos,
 //球と球の押し戻し
 VECTOR CCollision::SpherePush(VECTOR sphere, VECTOR sphere2, float radius, float radius2) {
 
-	//めり込み量を計算
+	//インスタンスを作成
 	float radi_1 = radius + radius2;
+
+	//位置を美調節
 	float radi_2 = (sphere.x - sphere2.x) * (sphere.x - sphere2.x) + (sphere.y - sphere2.y) * (sphere.y - sphere2.y) + (sphere.z - sphere2.z) * (sphere.z - sphere2.z);
 	radi_1 = radi_1 - sqrtf(radi_2);
 
-	//押し戻し
+	//押し戻し量を消す
 	VECTOR new_pos;
 	new_pos = VSub(sphere, sphere2);
 	new_pos = VNorm(new_pos);
+	//新しい座標を予測
 	new_pos = VScale(new_pos, radi_1);
 	sphere = VAdd(sphere, new_pos);
 	return sphere;

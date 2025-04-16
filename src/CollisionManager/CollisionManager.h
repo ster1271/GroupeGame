@@ -10,5 +10,9 @@ private:
 
 public:
 
+	//プレイヤーどうしの当たり判定
 	void PlayerToPlayer(Player *player);
+
+	//プレイヤーと弾の当たり判定
+	void PlayerToBullet(Player* player);
 };

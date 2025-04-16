@@ -105,7 +105,8 @@ void CPlayScene::Step()
 	for (int index = 0; index < 2; index++) {
 		player[index].Step();
 	}
-
+	cCollisionManager.PlayerToPlayer(player);
+	cCollisionManager.PlayerToBullet(player);
 	CDebugString::GetInstance()->AddString(0, 0, "プレイシーン");
 }
 

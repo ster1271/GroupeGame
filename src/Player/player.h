@@ -94,13 +94,32 @@ private:
 
 public:
 
+	//プレイヤー座標取得
 	VECTOR GetPos() { return pos; }
 
+	//プレイヤー座標セット
 	void SetPos(VECTOR new_pos) { pos = new_pos; }
 
 	//プレイヤーが何Pかセット
 	void SetPlayerP(int player_p) { playerIndex = player_p; }
 
+	//プレイヤー生存状態を取得
+	bool GetAlive() {
+		if (HP > 0) {
+			return true;
+		}
+		return false;
+	}
 
+	//弾座標取得
+	VECTOR GetBulletPos(int index) { return bulletPos[index]; }
 
+	//弾使用フラグを得る
+	bool GetUse(int index) { return bulletUseFlag[index]; }
+
+	//弾使用フラグ折る
+	void SetUse(int index) { bulletUseFlag[index] = false; }
+
+	//ダメージを受ける
+	void Damage() { HP -= 1; }
 };
