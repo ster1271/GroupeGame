@@ -24,6 +24,15 @@ void SceneManager::Loop()
 		{
 			//ここでタイトルシーンを削除
 
+			eSceneID = SCENE_SELECT;
+		}
+		break;
+
+	case SCENE_SELECT:
+		if (cSelectScene.Loop() != 0)
+		{
+			//ここでタイトルシーンを削除
+
 			eSceneID = SCENE_PLAY;
 		}
 		break;
@@ -63,6 +72,10 @@ void SceneManager::Draw()
 	{
 	case SCENE_TITLE:
 		cTitleScene.Draw();
+		break;
+
+	case SCENE_SELECT:
+		cSelectScene.Draw();
 		break;
 
 	case SCENE_PLAY:

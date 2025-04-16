@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "PlayScene.h"
 #include "TitleScene.h"
+#include "SelectScene.h"
 #include "ResultScene.h"
 
 class SceneManager
@@ -10,6 +11,7 @@ private:
 	enum tagSCENE
 	{
 		SCENE_TITLE,	//タイトル画面
+		SCENE_SELECT,	//選択画面
 		SCENE_PLAY,		//ゲーム中
 		SCENE_RESULT,	//リザルト画面
 
@@ -19,6 +21,7 @@ private:
 	tagSCENE eSceneID;				//シーン保存
 
 	CTitleScene cTitleScene;		//タイトルシーン
+	CSelectScene cSelectScene;		//セレクトシーン
 	CPlayScene cPlayScene;			//プレイシーン
 	CResultScene cResultScene;		//リザルトシーン
 

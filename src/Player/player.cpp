@@ -40,6 +40,9 @@ void Player::Init() {
 	bulletSpeed = PLAYER_BULLET_SPEED;
 	bulletCount = PLAYER_BULLET_MAX;
 	bulletReloadCount = 0;
+	if (playerIndex == 1) {
+		pos.x = 100;
+	}
 }
 
 
@@ -62,7 +65,10 @@ void Player::Step() {
 	//íeÇÃèàóù
 	Bullet();
 
-	//ç≈í·å¿ÇÃç¿ïWêßå¿
+	//ç≈í·å¿ÇÃêßå¿
+	if (HP < 0) {
+		HP = 0;
+	}
 	if (pos.x <= 16.0f) {
 		pos.x = 16.0f;
 	}

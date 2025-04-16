@@ -1,7 +1,7 @@
 #pragma once
 #include "../Common.h"
-#include "../Player/player.h"
 #include "../Map/Map.h"
+#include "../CollisionManager/CollisionManager.h"
 
 //プレイシーンクラス
 class CPlayScene
@@ -22,6 +22,7 @@ private:
 
 	Player player[2];
 	CMap cMap;
+	CCollisionManager cCollisionManager;
 
 public:
 	//コンストラクタ・デストラクタ
