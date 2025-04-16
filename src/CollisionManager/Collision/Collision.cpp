@@ -1,4 +1,5 @@
 #include "Collision.h"
+#include "math.h"
 
 //IsHitRect(2D)‚Ì’è‹`
 bool CCollision::IsHitRect(int myPos_X, int myPos_Y, int side, int Vertical,
@@ -63,4 +64,22 @@ bool CCollision::CheckHitSphereToSphere(VECTOR APos, float ASpereR, VECTOR BPos,
 	else
 		return false;
 
+}
+
+
+//‹…‚Æ‹…‚Ì‰Ÿ‚µ–ß‚µ
+VECTOR CCollision::SpherePush(VECTOR sphere, VECTOR sphere2, float radius, float radius2) {
+
+	//‚ß‚è‚İ—Ê‚ğŒvZ
+	float radi_1 = radius + radius2;
+	float radi_2 = (sphere.x - sphere2.x) * (sphere.x - sphere2.x) + (sphere.y - sphere2.y) * (sphere.y - sphere2.y) + (sphere.z - sphere2.z) * (sphere.z - sphere2.z);
+	radi_1 = radi_1 - sqrtf(radi_2);
+
+	//‰Ÿ‚µ–ß‚µ
+	VECTOR new_pos;
+	new_pos = VSub(sphere, sphere2);
+	new_pos = VNorm(new_pos);
+	new_pos = VScale(new_pos, radi_1);
+	sphere = VAdd(sphere, new_pos);
+	return sphere;
 }

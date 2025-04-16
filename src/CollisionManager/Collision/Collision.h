@@ -17,5 +17,8 @@ public:
 
 	// ‹…“¯Žm‚Ì“–‚½‚è”»’è
 	static bool CheckHitSphereToSphere(VECTOR APos, float ASpereR, VECTOR BPos, float BSpereR);
+
+	//‹…‚Ç‚¤‚µ‚Ì‰Ÿ‚µ–ß‚µ
+	static VECTOR SpherePush(VECTOR sphere, VECTOR sphere2, float radius, float radius2);
 };
 

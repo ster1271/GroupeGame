@@ -94,6 +94,13 @@ private:
 
 public:
 
+	VECTOR GetPos() { return pos; }
+
+	void SetPos(VECTOR new_pos) { pos = new_pos; }
+
 	//プレイヤーが何Pかセット
 	void SetPlayerP(int player_p) { playerIndex = player_p; }
+
+
+
 };
