@@ -1,6 +1,7 @@
 #include "player.h"
 #include "../Input/PadInput.h"
 #include "math.h"
+#include "../Data/Data.h"
 
 #define DEG_TO_RAD(a)	((a) * DX_PI_F / 180.0f)	// ƒ‰ƒWƒAƒ“Šp‚É•ÏŠ·‚·‚éŽ®
 
@@ -43,6 +44,8 @@ void Player::Init() {
 	if (playerIndex == 1) {
 		pos.x = 100;
 	}
+	CData::GetInstance()->GetPlayerType(playerIndex);
+	//attackPower=
 }
 
 

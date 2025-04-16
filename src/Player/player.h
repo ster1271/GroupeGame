@@ -4,6 +4,9 @@
 
 //プレイヤー
 constexpr int	PLAYER_MAX_HP = 100;			//プレイヤー最大HP
+constexpr int	PLAYER_ATTACK_POWER_1 = 2;		//プレイヤー攻撃力1
+constexpr int	PLAYER_ATTACK_POWER_2 = 5;		//プレイヤー攻撃力2
+constexpr int	PLAYER_ATTACK_POWER_3 = 15;		//プレイヤー攻撃力3
 constexpr float PLAYER_SPEED = 3.7f;			//プレイヤー速度
 constexpr float PLAYER_SLOW_SPEED = 2.5f;		//プレイヤーエイム時速度
 
@@ -34,6 +37,7 @@ private:
 	int		HP;						//プレイヤー体力
 	int		def;					//プレイヤー防御力
 	int		size;					//プレイヤーサイズ
+	int		attackPower;			//プレイヤー攻撃力
 	VECTOR	pos;					//プレイヤー座標
 	float	speed;					//プレイヤー速度
 	float	rot;					//プレイヤー回転値

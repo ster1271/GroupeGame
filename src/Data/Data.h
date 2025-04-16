@@ -25,13 +25,14 @@ public:
 	void SetMapID(MAP_TYPE id) { ID = id; }
 
 	//プレイヤーのタイプをセット。引数１、0～1プレイヤーの番号、引数２、選択されたプレイヤータイプ
-	int SetPlayerType(int player_p, int player_type) {
+	void SetPlayerType(int player_p, int player_type) {
 		playerType[player_p] = player_type;
 	}
 
+	int GetPlayerType(int player_p) { return playerType[player_p]; }
 	
 	void SetPlayerWin(bool a) { playerWin = a; };
 
 	//プレイヤーの勝利状態を取得(trueはプレイヤー１の勝利、falseはプレイヤー２の勝利)
-	bool SetPlayerWin() { return playerWin; };
+	bool GetPlayerWin() { return playerWin; };
 };

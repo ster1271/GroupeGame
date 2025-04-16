@@ -2,6 +2,7 @@
 #include "../Common.h"
 #include "../Map/Map.h"
 #include "../CollisionManager/CollisionManager.h"
+#include "../Data/Data.h"
 
 //プレイシーンクラス
 class CPlayScene
