@@ -107,7 +107,14 @@ void CPlayScene::Step()
 	}
 	cCollisionManager.PlayerToPlayer(player);
 	cCollisionManager.PlayerToBullet(player);
-	CDebugString::GetInstance()->AddString(0, 0, "プレイシーン");
+
+	//勝敗をセット
+	if (!player[0].GetAlive()) {
+		CData::GetInstance()->SetPlayerWin(false);
+	}
+	if (!player[1].GetAlive()) {
+		CData::GetInstance()->SetPlayerWin(true);
+	}
 }
 
 
