@@ -49,6 +49,7 @@ private:
 	{
 		VECTOR cPos;
 		VECTOR cRotate;
+		MAPTIP_TYPE Type_Id;
 		int iHndl;
 	};
 

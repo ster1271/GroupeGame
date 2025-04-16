@@ -80,6 +80,7 @@ bool CMap::LoadMap(MAP_TYPE id)
 			//必要な情報を格納
 			tmpInfo.cPos = VGet((float)FileIndexX * MAP_TIP_SIZE.x, BASE_VALUE + (float)FileIndexY * MAP_TIP_SIZE.y, MAP_TIP_SIZE.z);
 			tmpInfo.cRotate = VECTOR_ZERO;
+			tmpInfo.Type_Id = (MAPTIP_TYPE)FileNum;
 			tmpInfo.iHndl = LoadGraph(MapTipFilePath[FileNum]);
 
 			//リストに格納
