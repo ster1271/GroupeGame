@@ -29,6 +29,8 @@ const enum MAPTIP_TYPE
 	MAPTIP_TYPE_02,
 	MAPTIP_TYPE_03,
 	MAPTIP_TYPE_04,
+	MAPTIP_TYPE_05,
+	MAPTIP_TYPE_06,
 
 	MAPTIP_TYPE_NUM,
 };
@@ -41,6 +43,8 @@ static const char MapTipFilePath[MAPTIP_TYPE_NUM][256]
 	"data/play/map/MapTip02.png",
 	"data/play/map/MapTip03.png",
 	"data/play/map/MapTip04.png",
+	"data/play/map/MapTip05.png",
+	"data/play/map/MapTip06.png",
 };
 
 
