@@ -111,9 +111,11 @@ void CPlayScene::Step()
 	//Ÿ”s‚ðƒZƒbƒg
 	if (!player[0].GetAlive()) {
 		CData::GetInstance()->SetPlayerWin(false);
+		eSceneID = PLAY_SCENE_END;
 	}
 	if (!player[1].GetAlive()) {
 		CData::GetInstance()->SetPlayerWin(true);
+		eSceneID = PLAY_SCENE_END;
 	}
 }
 

@@ -3,22 +3,20 @@
 
 
 //プレイヤー
-constexpr int	PLAYER_MAX_HP = 100;			//プレイヤー最大HP
-constexpr int	PLAYER_ATTACK_POWER_1 = 2;		//プレイヤー攻撃力1
-constexpr int	PLAYER_ATTACK_POWER_2 = 5;		//プレイヤー攻撃力2
-constexpr int	PLAYER_ATTACK_POWER_3 = 15;		//プレイヤー攻撃力3
-constexpr float PLAYER_SPEED = 3.7f;			//プレイヤー速度
-constexpr float PLAYER_SLOW_SPEED = 2.5f;		//プレイヤーエイム時速度
+constexpr int	PLAYER_MAX_HP = 100;					//プレイヤー最大HP
+constexpr int	PLAYER_ATTACK_POWER[3] = { 2,5,15 };	//プレイヤー攻撃力
+constexpr float PLAYER_SPEED = 3.7f;					//プレイヤー速度
+constexpr float PLAYER_SLOW_SPEED = 2.5f;				//プレイヤーエイム時速度
 
 //エイム
-constexpr float AIM_SPEED = 8.0f;				//エイムカーソルの移動速度
-constexpr float AIM_RADIUS = 300.0f;			//エイムとプレイヤーの距離
+constexpr float AIM_SPEED = 8.0f;						//エイムカーソルの移動速度
+constexpr float AIM_RADIUS = 300.0f;					//エイムとプレイヤーの距離
 
 //プレイヤーの弾
-constexpr int	 PLAYER_BULLET_MAX = 23;			//プレイヤー弾最大数
-constexpr int	 PLAYER_BULLET_FIRE_TIME = 8;		//プレイヤー弾発射可能時間
-constexpr int	 PLAYER_BULLET_RELOAD_TIME = 150;	//プレイヤー弾装填所要時間
-constexpr float	 PLAYER_BULLET_SPEED = 10.0f;		//プレイヤー弾速度
+constexpr int	 PLAYER_BULLET_MAX = 23;				//プレイヤー弾最大数
+constexpr int	 PLAYER_BULLET_TIME[3] = { 6,10,50 };	//プレイヤー弾発射可能時間
+constexpr int	 PLAYER_BULLET_RELOAD_TIME = 150;		//プレイヤー弾装填所要時間
+constexpr float	 PLAYER_BULLET_SPEED = 10.0f;			//プレイヤー弾速度
 
 //UI
 constexpr int   PLAYER_UI_BULLET_X_1 = 100;		//1Pの弾座標X
@@ -52,7 +50,8 @@ private:
 	int		 bulletHandle;						//弾の画像
 	int		 bulletSize;						//弾のサイズ
 	int		 bulletCount;						//弾の残弾数
-	int		 bulletInterval;					//弾のインターバル
+	int		 bulletInterval;					//弾のインターバルカウント
+	int		 MaxBulletInterval;					//弾のインターバル
 	int		 bulletReloadCount;					//弾の装填時間
 	VECTOR	 bulletPos[PLAYER_BULLET_MAX];		//弾の座標
 	bool	 bulletReloadFlag;					//弾のリロードフラグ
@@ -124,6 +123,9 @@ public:
 	//弾使用フラグ折る
 	void SetUse(int index) { bulletUseFlag[index] = false; }
 
+	//プレイヤー攻撃力を得る
+	int GetAttackPower() { return attackPower; }
+
 	//ダメージを受ける
-	void Damage() { HP -= 1; }
+	void Damage(int attack_power) { HP -= attack_power; }
 };

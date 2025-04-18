@@ -44,8 +44,9 @@ void Player::Init() {
 	if (playerIndex == 1) {
 		pos.x = 100;
 	}
-	CData::GetInstance()->GetPlayerType(playerIndex);
-	//attackPower=
+	
+	attackPower = PLAYER_ATTACK_POWER[CData::GetInstance()->GetPlayerType(playerIndex)];
+	MaxBulletInterval= PLAYER_BULLET_TIME[CData::GetInstance()->GetPlayerType(playerIndex)];
 }
 
 
@@ -231,7 +232,7 @@ void Player::Bullet() {
 	bulletInterval++;
 
 	//’e‚ª”­ŽË‰Â”\‚È‚çŽÀs
-	if (bulletInterval > PLAYER_BULLET_FIRE_TIME&& bulletCount > 0) {
+	if (bulletInterval > MaxBulletInterval && bulletCount > 0) {
 		if (PadInput::Keep(playerIndex,XINPUT_BUTTON_RIGHT_SHOULDER)&& !bulletReloadFlag) {
 			bulletInterval = 0;
 			//’e‚ð”­ŽË
