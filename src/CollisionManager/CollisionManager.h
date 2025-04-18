@@ -2,6 +2,7 @@
 #include "Collision/Collision.h"
 #include "../Debug/DebugString.h"
 #include "../Player/player.h"
+#include "../Map/Map.h"
 
 //コリジョンマネージャークラス
 class CCollisionManager
@@ -15,4 +16,7 @@ public:
 
 	//プレイヤーと弾の当たり判定
 	void PlayerToBullet(Player* player);
+
+	//プレイヤーとマップの当たり安定
+	void PlayerToMap(Player* player, CMap map);
 };
