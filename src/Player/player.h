@@ -100,6 +100,27 @@ public:
 	//プレイヤー座標取得
 	VECTOR GetPos() { return pos; }
 
+	//プレイヤーボックス座標取得
+	VECTOR GetPos2() {
+		VECTOR p;
+		p.x = pos.x-16;
+		p.y = pos.y - 16;
+		p.z = 0;
+		return p;
+	}
+
+	//プレイヤーボックス座標セット
+	void SetPos2(VECTOR p_p) { 
+		VECTOR p;
+		p.x = p_p.x + 16;
+		p.y = p_p.y + 16;
+		p.z = 0;
+		SetPos(p);
+	}
+
+	//プレイヤーサイズ取得
+	int GetSize() { return 32; }
+
 	//プレイヤー座標セット
 	void SetPos(VECTOR new_pos) { pos = new_pos; }
 
