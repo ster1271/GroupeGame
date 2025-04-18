@@ -1,6 +1,7 @@
 #pragma once
 #include "../Common.h"
 #include "../Data/Data.h"
+#include "../Input/PadInput.h"
 
 class CResultScene
 {

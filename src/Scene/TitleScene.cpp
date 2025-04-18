@@ -131,7 +131,7 @@ void CTitleScene::Step()
 
 	ImageMove(START_POSX, START_POSY, END_POSX, END_POSY, 80, 2, &m_PosX, &m_PosY);
 		
-	if (CInput::IsKeyPush(KEY_INPUT_RETURN))
+	if (CInput::IsKeyPush(KEY_INPUT_RETURN) || PadInput::Push(0,XINPUT_BUTTON_A) )
 	{
 		eSceneID = TITLE_SCENE_END;
 	}

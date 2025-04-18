@@ -106,7 +106,7 @@ void CResultScene::Step()
 	}
 
 	//ƒV[ƒ“I—¹ˆ—
-	if (CInput::IsKeyPush(KEY_INPUT_RETURN))
+	if (CInput::IsKeyPush(KEY_INPUT_RETURN) || PadInput::Push(0, XINPUT_BUTTON_A))
 	{
 		m_IsDecideScene = true;
 

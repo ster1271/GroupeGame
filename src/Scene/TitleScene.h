@@ -1,5 +1,6 @@
 #pragma once
 #include "../Common.h"
+#include "../Input/PadInput.h"
 
 class CTitleScene
 {
@@ -44,6 +45,7 @@ private:
 	int m_handle;
 	int m_SelectPointer;
 	int m_ArrivalTime;	// ‰æ‘œ‚Ì“ž’BŽžŠÔ
+	int m_PlayerIndex[2];
 	float m_alpha;
 	
 	bool m_BlinkFlag;
