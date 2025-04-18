@@ -44,7 +44,7 @@ void Player::Init() {
 	if (playerIndex == 1) {
 		pos.x = 100;
 	}
-	
+	maxSpeed= PLAYER_SPEED[CData::GetInstance()->GetPlayerType(playerIndex)];
 	attackPower = PLAYER_ATTACK_POWER[CData::GetInstance()->GetPlayerType(playerIndex)];
 	MaxBulletInterval= PLAYER_BULLET_TIME[CData::GetInstance()->GetPlayerType(playerIndex)];
 }
@@ -54,6 +54,19 @@ void Player::Init() {
 void Player::Load() {
 	aimHandle = LoadGraph("data/play/player/aim.png");
 	bulletHandle = LoadGraph("data/play/player/bullet.png");
+	if (playerIndex == 0) {
+		imageHandle = LoadGraph("data/play/player/player1.png");
+	}
+	else {
+		imageHandle = LoadGraph("data/play/player/player2.png");
+	}
+	if (playerIndex == 0) {
+			pos.x = 100;
+		}
+		else {
+			pos.x = 1180;
+		}
+		pos.y = SCREEN_SIZE_Y / 2+30;
 }
 
 
@@ -103,9 +116,10 @@ void Player::Step() {
 
 //プレイヤー描画
 void Player::Draw() {
-
-	DrawCircle((int)pos.x, (int)pos.y, 16, 255);
-	DrawLine((int)pos.x, (int)pos.y, (int)(pos.x + 50.0f * cosf(rot)), (int)(pos.y - 50.0f * sinf(rot)), 2222232, 4);
+	DrawCircle((int)pos.x, (int)pos.y, 16, GetColor(255, 255, 255));
+	DrawLine((int)pos.x, (int)pos.y, (int)(pos.x + 50.0f * cosf(rot)), (int)(pos.y - 50.0f * sinf(rot)), GetColor(255, 0, 0), 4);
+	DrawRotaGraph((int)pos.x, (int)pos.y,1.0,0.0,imageHandle,true);
+	
 
 	//弾の描画
 	for (int index = 0; index < PLAYER_BULLET_MAX; index++) {
@@ -175,6 +189,8 @@ void Player::Fin() {
 //プレイヤーの移動
 void Player::PlayerMove() {
 
+	prePos = pos;
+
 	//移動入力されていたら実行
 	if (PadInput::GetLX(playerIndex) != 0 || PadInput::GetLY(playerIndex) != 0) {
 
@@ -183,10 +199,10 @@ void Player::PlayerMove() {
 
 		//エイムボタンが押されていたら移動速度を変更
 		if (PadInput::Keep(playerIndex, XINPUT_BUTTON_LEFT_SHOULDER)) {
-			speed = PLAYER_SLOW_SPEED;
+			speed = PLAYER_SLOW_SPEED[CData::GetInstance()->GetPlayerType(playerIndex)];
 		}
 		else {
-			speed = PLAYER_SPEED;
+			speed = maxSpeed;
 			rot = radian;
 		}
 

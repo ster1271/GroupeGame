@@ -4,7 +4,8 @@
 CData* CData::cInstance = nullptr;
 
 //コンストラクタ・デストラクタ
-CData::CData() {};
+CData::CData() {
+};
 CData::~CData() {};
 
 //インスタンスの生成
@@ -15,6 +16,7 @@ void CData::Create()
 	{
 		//新しくnewする
 		cInstance = new CData();
+
 	}
 }
 

@@ -50,7 +50,7 @@ static const char MapTipFilePath[MAPTIP_TYPE_NUM][256]
 
 class CMap
 {
-private:
+public:
 	FILE* fp;
 
 	struct MapTipInfo
