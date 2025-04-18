@@ -1,6 +1,8 @@
 #include "TitleScene.h"
 
 #define ALPHA_MAX (255) // アルファ値の最大値
+#define END_POSX (300)
+#define END_POSY (500)
 
 //コンストラクタ
 CTitleScene::CTitleScene()
@@ -86,6 +88,9 @@ void CTitleScene::Load()
 	m_startTime = GetNowCount();	// 起動してからの時間を取得
 	m_handle = LoadGraph("data/title/フライゴン.png");
 
+	m_TwoPointDistance = sqrt((END_POSX - m_PosX) * (END_POSX - m_PosX) + (END_POSY - m_PosY) * (END_POSX - m_PosY));
+	m_TwoPointRadius = atan2f((END_POSX - m_PosX), (END_POSY - m_PosY));
+
 }
 
 
@@ -114,6 +119,8 @@ void CTitleScene::Draw()
 //中身の処理
 void CTitleScene::Step()
 {
+
+		
 	if (CInput::IsKeyPush(KEY_INPUT_RETURN))
 	{
 		eSceneID = TITLE_SCENE_END;
@@ -128,7 +135,7 @@ void CTitleScene::UpData()
 {
 }
 
-void CTitleScene::ImageMove(float PositionX, float PositionY, int time, float Radius)
+void CTitleScene::ImageMove(float StartPositionX, float StartPositionY, float EndPositionX, float EndPositionY, int time, float Radius)
 {
 
 }

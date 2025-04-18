@@ -42,9 +42,18 @@ private:
 	int m_startTime;	// パソコンが起動してからの時間
 	int m_NowTime;		// 現在の時間
 	int m_handle;
+	int m_SelectPointer;
+	int m_ArrivalTime;	// 画像の到達時間
 	float m_alpha;
-	float m_alpha2;
+	
 	bool m_BlinkFlag;
+
+	// デバック用の変数
+	float m_PosX;
+	float m_PosY;
+	float m_alpha2;
+	float m_TwoPointDistance;	// 二点間の距離
+	float m_TwoPointRadius;		// 二点間の角度
 
 public:
 	//コンストラクタ・デストラクタ
@@ -86,6 +95,6 @@ private:
 	// SubPace		= 値が多いほど透明になるのが早くなる
 	void ImageBlink(int Handle, float* p_Alpha, float BlinkSpeed, bool* p_BlinkFlag, float AddPace, float SubPace);
 
-	void ImageMove(float PositionX, float PositionY,int time,float Radius);
+	void ImageMove(float StartPositionX, float StartPositionY,float EndPositionX, float EndPositionY ,int time,float Radius);
 
 };
