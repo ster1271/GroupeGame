@@ -24,7 +24,6 @@ constexpr int   PLAYER_UI_BULLET_X_2 = 740;		//2Pの弾座標X
 constexpr int   PLAYER_UI_BULLET_Y = 48;		//弾座標Y
 constexpr int	PLAYER_UI_DISTA = 3;			//弾UIの横倍率
 
-
 //プレイヤークラス
 class Player {
 private:
