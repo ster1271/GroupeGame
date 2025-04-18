@@ -51,9 +51,13 @@ private:
 	// デバック用の変数
 	float m_PosX;
 	float m_PosY;
+	float m_StartPosX;
+	float m_StartPosY;
 	float m_alpha2;
 	float m_TwoPointDistance;	// 二点間の距離
 	float m_TwoPointRadius;		// 二点間の角度
+	int m_HoiigaHandle;
+	float Angle;
 
 public:
 	//コンストラクタ・デストラクタ
@@ -95,6 +99,7 @@ private:
 	// SubPace		= 値が多いほど透明になるのが早くなる
 	void ImageBlink(int Handle, float* p_Alpha, float BlinkSpeed, bool* p_BlinkFlag, float AddPace, float SubPace);
 
-	void ImageMove(float StartPositionX, float StartPositionY,float EndPositionX, float EndPositionY ,int time,float Radius);
+	void ImageMove(float StartPositionX, float StartPositionY, float EndPositionX, float EndPositionY,
+					float MoveSpeed,int time, float* p_MovePositionX, float* p_MovePositionY);
 
 };

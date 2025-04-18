@@ -51,7 +51,17 @@ void SceneManager::Loop()
 		{
 			//ここでリザルトシーンを削除
 
-			eSceneID = SCENE_TITLE;
+			switch (cResultScene.GetSceneCursor())
+			{
+			case SCENE_TITLE: eSceneID = SCENE_TITLE;
+				break;
+			case SCENE_SELECT: eSceneID = SCENE_SELECT;
+				break;
+			case SCENE_PLAY:  eSceneID = SCENE_PLAY;
+			default:
+				break;
+			}
+			
 		}
 		break;
 
