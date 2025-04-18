@@ -319,7 +319,19 @@ void CSelectScene::SelectChara()
 		//1P‘¤
 		if (PadInput::Push(0, XINPUT_BUTTON_A))
 		{
-			CData::GetInstance()->SetPlayerType(0, m_1PChara_index);
+			switch (m_1PChara_index)
+			{
+				case SELECT_CHARA_IMAGE_1:
+					CData::GetInstance()->SetPlayerType(0, 0);
+					break;
+				case SELECT_CHARA_IMAGE_2:
+					CData::GetInstance()->SetPlayerType(0, 1);
+					break;
+				case SELECT_CHARA_IMAGE_3:
+					CData::GetInstance()->SetPlayerType(0, 2);
+					break;
+			}
+						
 			m_Is1PCharaSelected = true;
 		}
 	}
