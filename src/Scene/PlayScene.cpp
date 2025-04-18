@@ -72,7 +72,7 @@ void CPlayScene::Exit()
 //データ読み込み
 void CPlayScene::Load()
 {
-	cMap.Load(MAP_TYPE_00);
+	cMap.Load(CData::GetInstance()->GetMapID());
 	for (int index = 0; index < 2; index++) {
 		player[index].Load();
 	}
@@ -111,11 +111,9 @@ void CPlayScene::Step()
 	//勝敗をセット
 	if (!player[0].GetAlive()) {
 		CData::GetInstance()->SetPlayerWin(false);
-		eSceneID = PLAY_SCENE_END;
 	}
 	if (!player[1].GetAlive()) {
 		CData::GetInstance()->SetPlayerWin(true);
-		eSceneID = PLAY_SCENE_END;
 	}
 }
 

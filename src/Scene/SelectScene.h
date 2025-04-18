@@ -1,10 +1,14 @@
 #pragma once
 #include "../Common.h"
+#include "../Data/Data.h"
+#include "../Input/Input.h"
+#include "../Input/PadInput.h"
+
+const int PLAYER_NUM = 2;
 
 class CSelectScene
 {
 private:
-
 	enum tagSELECT_SCENE
 	{
 		SELECT_SCENE_INIT,
@@ -15,15 +19,40 @@ private:
 		SELECT_SCENE_NUM
 	};
 
-	enum tagSELECT_IMAGE
+	enum tagSELECT_UI_IMAGE
 	{
-		SELECT_IMAGE_CURSOR1,
-		SELECT_IMAGE_CURSOR2,
-		SELECT_IMAGE_CHARA1,
-		SELECT_IMAGE_CHARA2,
-		SELECT_IMAGE_CHARA3,
+		SELECT_UI_IMAGE_CURSOR1,
+		SELECT_UI_IMAGE_CURSOR2,
+		SELECT_UI_IMAGE_CURSOR3,
+		SELECT_UI_IMAGE_CURSOR4,
 
-		SELECT_IMAGE_NUM
+		SELECT_UI_IMAGE_NUM
+	};
+
+	enum tagSELECT_CHARA_IMAGE
+	{
+		SELECT_CHARA_IMAGE_1,
+		SELECT_CHARA_IMAGE_2,
+		SELECT_CHARA_IMAGE_3,
+
+		SELECT_CHARA_IMAGE_NUM
+	};
+
+	enum tagSELECT_STAGE_IMAGE
+	{
+		SELECT_STAGE_IMAGE_1,
+		SELECT_STAGE_IMAGE_2,
+		SELECT_STAGE_IMAGE_3,
+
+		SELECT_STAGE_IMAGE_NUM
+	};
+
+	enum tagSCREEN
+	{
+		SCREEN_CHARA,
+		SCREEN_STAGE,
+
+		SCREEN_NUM
 	};
 
 	struct Image
@@ -39,23 +68,29 @@ private:
 		int Handle;				// 画像ハンドル
 	};
 
-	const Image e_Image[SELECT_IMAGE_NUM] =
-	{
-		{0.0f,0.0f,0,0,0,false,0},
-		{0.0f,0.0f,0,0,0,false,0},
-		{0.0f,0.0f,0,0,0,false,0},
-		{0.0f,0.0f,0,0,0,false,0},
-		{0.0f,0.0f,0,0,0,false,0}
-	};
-
 	tagSELECT_SCENE eSceneID;
 
 	int m_startTime;	// パソコンが起動してからの時間
 	int m_NowTime;		// 現在の時間
-	int m_handle[SELECT_IMAGE_NUM];
+	int m_UI_handle[SELECT_UI_IMAGE_NUM];
+
+	int m_1PChara_handle[SELECT_CHARA_IMAGE_NUM];	//1Pキャラクター画像
+	int m_1PChara_index;		//1Pキャラクター画像の添え字
+	bool m_Is1PCharaSelected;	//1Pキャラクター決定判断用
+
+	int m_2PChara_handle[SELECT_CHARA_IMAGE_NUM];	//2Pキャラクター画像
+	int m_2PChara_index;		//2Pキャラクター画像の添え字
+	bool m_Is2PCharaSelected;	//2Pキャラクター決定判断用
+
+	int m_Stage_handle[SELECT_STAGE_IMAGE_NUM];
+	int m_Stage_index;
+	bool m_IsStageSelected;
+
+	int m_Scene_index;
 	float m_alpha;
 	float m_alpha2;
 	bool m_BlinkFlag;
+	bool m_ExpantionFlag;	//拡大フラグ
 
 public:
 	//コンストラクタ・デストラクタ
@@ -85,6 +120,20 @@ public:
 
 private:
 
+	//キャラクター選択
+	void ChangeCharaImage();
+	//キャラクター決定
+	void SelectChara();
+	//キャラクターキャンセル
+	void CancelChara();
+
+	//ステージ選択
+	void ChangeStageImage();
+	//ステージ決定
+	void SelectStage();
+	//ステージキャンセル
+	void CancelStage();
+
 	// 描画関数
 
 	// ImageBlink 画像を点滅させる
@@ -98,11 +147,4 @@ private:
 	void ImageBlink(int Handle, float* p_Alpha, float BlinkSpeed, bool* p_BlinkFlag, float AddPace, float SubPace);
 
 	void ImageMove(float PositionX, float PositionY, int time, float Radius);
-
-	// ImageChangeScale 画像を拡縮させる
-	// ==========変数==========
-	// Handle		= 拡縮させたい画像ハンドル
-	// Scale_Rate	= 画像の大きさ
-	// Scale_Speed	= 拡縮の速さ
-	void ImageChangeScale(int Handle, float Scale_Rate, float Scale_Speed);
 };
