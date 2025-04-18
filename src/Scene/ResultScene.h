@@ -1,8 +1,19 @@
 #pragma once
 #include "../Common.h"
+#include "../Data/Data.h"
 
 class CResultScene
 {
+public:
+	enum SCENE_CURSOR
+	{
+		CURSOR_TITLE = 0,							// タイトルカーソル
+		CURSOR_SELECT,								// セレクトカーソル
+		CURSOR_PLAY,								// プレイカーソル
+
+		CURSOR_NUMBER_NUM							// カーソルの数
+	};
+
 private:
 	enum tagRESULT_SCENE
 	{
@@ -15,6 +26,13 @@ private:
 	};
 
 	tagRESULT_SCENE eSceneID;
+	SCENE_CURSOR e_SceneCuesor;
+
+	bool m_WinFlag;
+	int m_CursorNumber;
+	bool m_IsDecideScene;
+
+	void SceneSelect();
 
 
 public:
@@ -39,5 +57,7 @@ public:
 
 	//本体処理
 	void Step();
+
+	SCENE_CURSOR GetSceneCursor() { return e_SceneCuesor; }
 };
 

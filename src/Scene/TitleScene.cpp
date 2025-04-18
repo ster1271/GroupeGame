@@ -1,8 +1,10 @@
 #include "TitleScene.h"
 
 #define ALPHA_MAX (255) // アルファ値の最大値
-#define END_POSX (300)
-#define END_POSY (500)
+#define START_POSX (0.0f)
+#define START_POSY (0.0f)
+#define END_POSX (1000.0f)
+#define END_POSY (500.0f)
 
 //コンストラクタ
 CTitleScene::CTitleScene()
@@ -71,6 +73,7 @@ void CTitleScene::Init()
 	m_alpha2 = 0;
 	m_BlinkFlag = false;
 	m_handle = -1;
+	m_HoiigaHandle = -1;
 
 }
 
@@ -87,8 +90,11 @@ void CTitleScene::Load()
 {
 	m_startTime = GetNowCount();	// 起動してからの時間を取得
 	m_handle = LoadGraph("data/title/フライゴン.png");
+	m_HoiigaHandle = LoadGraph("data/title/ホイーガ.png");
 
-	m_TwoPointDistance = sqrt((END_POSX - m_PosX) * (END_POSX - m_PosX) + (END_POSY - m_PosY) * (END_POSX - m_PosY));
+	// 画像の最初の座標と画像の向かう座標で角度を計算
+	//m_TwoPointDistance = sqrt((END_POSX - m_PosX) * (END_POSX - m_PosX) + (END_POSY - m_PosY) * (END_POSX - m_PosY)); 
+
 	m_TwoPointRadius = atan2f((END_POSX - m_PosX), (END_POSY - m_PosY));
 
 }
@@ -103,10 +109,13 @@ void CTitleScene::Draw()
 
 	DrawBox(150, 0, 20, 500, COLOR, true, 0);
 
-
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, (int)m_alpha);
 
-	ImageBlink(m_handle, &m_alpha2, 2, &m_BlinkFlag, 30, 5);
+
+	Angle += 0.5;
+
+	ImageBlink(m_handle, &m_alpha2, 2, &m_BlinkFlag, 0.5,0);
+	DrawRotaGraph((int)m_PosX, (int)m_PosY,1,Angle, m_HoiigaHandle, true);
 
 
 	DrawBox(200, 0, 300, 500, COLOR, true, 0);
@@ -120,6 +129,7 @@ void CTitleScene::Draw()
 void CTitleScene::Step()
 {
 
+	ImageMove(START_POSX, START_POSY, END_POSX, END_POSY, 80, 2, &m_PosX, &m_PosY);
 		
 	if (CInput::IsKeyPush(KEY_INPUT_RETURN))
 	{
@@ -135,8 +145,36 @@ void CTitleScene::UpData()
 {
 }
 
-void CTitleScene::ImageMove(float StartPositionX, float StartPositionY, float EndPositionX, float EndPositionY, int time, float Radius)
+void CTitleScene::ImageMove(float StartPositionX, float StartPositionY, float EndPositionX, float EndPositionY,
+							float MoveSpeed,int time, float* p_MovePositionX, float* p_MovePositionY)
 {
+	float Radius = 0.0f;
+	float MovePositionX = 0.0f;
+	float MovePositionY = 0.0f;
+
+	Radius = atan2f((EndPositionX - StartPositionX), (EndPositionY - StartPositionY));
+
+	MovePositionX = sinf(Radius) * (MoveSpeed / time);
+	MovePositionY = cosf(Radius) * (MoveSpeed / time);
+
+	if (EndPositionX < (*p_MovePositionX + MovePositionX))
+	{
+		*p_MovePositionX = END_POSX;
+	}
+	else
+	{
+		*p_MovePositionX += MovePositionX;
+	}
+
+	if (EndPositionY < (*p_MovePositionY + MovePositionY))
+	{
+		*p_MovePositionY = END_POSY;
+	}
+	else
+	{
+		*p_MovePositionY += MovePositionY;
+	}
+
 
 }
 
