@@ -4,9 +4,9 @@
 
 //プレイヤー
 constexpr int	PLAYER_MAX_HP = 100;					//プレイヤー最大HP
-constexpr int	PLAYER_ATTACK_POWER[3] = { 2,5,15 };	//プレイヤー攻撃力
-constexpr float PLAYER_SPEED = 3.7f;					//プレイヤー速度
-constexpr float PLAYER_SLOW_SPEED = 2.5f;				//プレイヤーエイム時速度
+constexpr int	PLAYER_ATTACK_POWER[3] = { 2,6,25 };	//プレイヤー攻撃力
+constexpr float PLAYER_SPEED[3] = { 5.5f,3.5f,3.7f };	//プレイヤー速度
+constexpr float PLAYER_SLOW_SPEED[3] = { 4.0f,2.0f,2.5f };//プレイヤーエイム時速度
 
 //エイム
 constexpr float AIM_SPEED = 8.0f;						//エイムカーソルの移動速度
@@ -14,9 +14,9 @@ constexpr float AIM_RADIUS = 300.0f;					//エイムとプレイヤーの距離
 
 //プレイヤーの弾
 constexpr int	 PLAYER_BULLET_MAX = 23;				//プレイヤー弾最大数
-constexpr int	 PLAYER_BULLET_TIME[3] = { 6,10,50 };	//プレイヤー弾発射可能時間
+constexpr int	 PLAYER_BULLET_TIME[3] = { 5,12,50 };	//プレイヤー弾発射可能時間
 constexpr int	 PLAYER_BULLET_RELOAD_TIME = 150;		//プレイヤー弾装填所要時間
-constexpr float	 PLAYER_BULLET_SPEED = 10.0f;			//プレイヤー弾速度
+constexpr float	 PLAYER_BULLET_SPEED = 15.0f;			//プレイヤー弾速度
 
 //UI
 constexpr int   PLAYER_UI_BULLET_X_1 = 100;		//1Pの弾座標X
@@ -36,7 +36,9 @@ private:
 	int		size;					//プレイヤーサイズ
 	int		attackPower;			//プレイヤー攻撃力
 	VECTOR	pos;					//プレイヤー座標
+	VECTOR	prePos;					//プレイヤー前フレ画像
 	float	speed;					//プレイヤー速度
+	float	maxSpeed;				//プレイヤー最大速度
 	float	rot;					//プレイヤー回転値
 	float	radian;					//プレイヤーの移動方向
 	
@@ -117,6 +119,15 @@ public:
 		SetPos(p);
 	}
 
+	//プレイヤーボックス座標取得
+	VECTOR GetPrePos2() {
+		VECTOR p;
+		p.x = prePos.x - 16;
+		p.y = prePos.y - 16;
+		p.z = 0;
+		return p;
+	}
+
 	//プレイヤーサイズ取得
 	int GetSize() { return 32; }
 
@@ -136,6 +147,14 @@ public:
 
 	//弾座標取得
 	VECTOR GetBulletPos(int index) { return bulletPos[index]; }
+
+	//弾座標取得
+	VECTOR GetBulletPos2(int index) { 
+		VECTOR p;
+		p.x = bulletPos[index].x - 16;
+		p.y = bulletPos[index].y - 16;
+		p.z = 0;
+		return p; }
 
 	//弾使用フラグを得る
 	bool GetUse(int index) { return bulletUseFlag[index]; }

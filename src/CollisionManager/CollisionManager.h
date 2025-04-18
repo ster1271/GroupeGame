@@ -19,4 +19,7 @@ public:
 
 	//プレイヤーとマップの当たり安定
 	void PlayerToMap(Player* player, CMap map);
+
+	//プレイヤー弾とマップの当たり判定
+	void BulletToMap(Player* player, CMap map);
 };

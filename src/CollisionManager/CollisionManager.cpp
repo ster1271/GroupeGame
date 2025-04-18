@@ -38,26 +38,88 @@ void CCollisionManager::PlayerToBullet(Player* player) {
 
 
 //プレイヤーとマップの当たり安定
-//void PlayerToMap(Player* player, CMap map) {
-//
-//	//プレイヤー二人分
-//	for (int p_index = 0; p_index < 2; p_index++) {
-//		
-//		//マップを回す
-//		for (int MapIndex = 0; MapIndex != MapTipList.size(); MapIndex++)
-//			
-//			//床は判定しない
-//			if (map.MapTipList[MapIndex].Type_Id == 1 || map.MapTipList[MapIndex].Type_Id == 4) {
-//				continue;
-//			}
-//
-//		//長いので代入
-//		VECTOR p_p = player[p_index].GetPos2();
-//		VECTOR m_p = map.MapTipList[MapIndex].cPos;
-//
-//		//当たり判定をとる
-//		if (CCollision::IsHitRect(p_p.x, p_p.y, 32, 32, m_p.x, m_p.y, 32, 32)) {
-//
-//		}
-//	}
-//}
+void CCollisionManager::PlayerToMap(Player* player, CMap map) {
+
+	//プレイヤー二人分
+	for (int p_index = 0; p_index < 2; p_index++) {
+		
+		//長いので代入
+		VECTOR p_p = player[p_index].GetPos2();
+		//長いので代入
+		VECTOR p_p_p = player[p_index].GetPrePos2();
+
+		//マップを回す
+		for (int MapIndex = 0; MapIndex != map.MapTipList.size(); MapIndex++) {
+
+			//床は判定しない
+			if (map.MapTipList[MapIndex].Type_Id == 2 || map.MapTipList[MapIndex].Type_Id == 6|| map.MapTipList[MapIndex].Type_Id == 4) {
+				continue;
+			}
+
+			//長いので代入
+			VECTOR m_p = map.MapTipList[MapIndex].cPos;
+
+			//当たり判定をとる
+			if (CCollision::IsHitRect(p_p.x, p_p.y, 32, 32, m_p.x, m_p.y, 32, 32)) {
+
+				//yのみ判定
+				if (CCollision::IsHitRect(p_p_p.x, p_p.y, 32, 32, m_p.x, m_p.y, 32, 32)) {
+					if (p_p.y < m_p.y) {
+						p_p.y += m_p.y - (p_p.y + 32);
+					}
+					else {
+						p_p.y += (m_p.y + 32) - p_p.y;
+					}
+				}
+
+				//xのみ判定
+				if (CCollision::IsHitRect(p_p.x, p_p.y, 32, 32, m_p.x, m_p.y, 32, 32)) {
+
+					if (p_p.x < m_p.x) {
+						p_p.x += m_p.x - (p_p.x + 32);
+					}
+					else {
+						p_p.x += (m_p.x + 32) - p_p.x;
+					}
+				}
+			}
+		}
+		//座標更新
+		player[p_index].SetPos2(p_p);
+	}
+}
+
+
+//プレイヤー弾とマップの当たり判定
+void CCollisionManager::BulletToMap(Player* player, CMap map) {
+
+	//プレイヤー二人分
+	for (int p_index = 0; p_index < 2; p_index++) {
+
+		for(int index=0;index<PLAYER_BULLET_MAX;index++){
+			if (!player[p_index].GetUse(index)) { continue; }
+			
+			//長いので代入
+			VECTOR b_p = player[p_index].GetBulletPos2(index);
+
+		//マップを回す
+			for (int MapIndex = 0; MapIndex != map.MapTipList.size(); MapIndex++) {
+
+				//床は判定しない
+				if (map.MapTipList[MapIndex].Type_Id == 2 || map.MapTipList[MapIndex].Type_Id == 6 || map.MapTipList[MapIndex].Type_Id == 4) {
+					continue;
+				}
+
+				//長いので代入
+				VECTOR m_p = map.MapTipList[MapIndex].cPos;
+
+				//当たり判定をとる
+				if (CCollision::IsHitRect(b_p.x, b_p.y, 16, 32, m_p.x, m_p.y, 16, 32)) {
+
+					player[p_index].SetUse(index);
+				}
+			}
+		}
+	}
+
+}

@@ -144,21 +144,26 @@ void CSelectScene::Load()
 	m_UI_handle[SELECT_UI_IMAGE_CURSOR2] = LoadGraph("data/select/Cursor.png");
 	m_UI_handle[SELECT_UI_IMAGE_CURSOR3] = LoadGraph("data/select/Cursor.png");
 	m_UI_handle[SELECT_UI_IMAGE_CURSOR4] = LoadGraph("data/select/Cursor.png");
+	m_UI_handle[SELECT_UI_IMAGE_TEXT1] = LoadGraph("data/select/Select_Text1.png");
+	m_UI_handle[SELECT_UI_IMAGE_TEXT2] = LoadGraph("data/select/Select_Text2.png");
+	m_UI_handle[SELECT_UI_IMAGE_TEXT3] = LoadGraph("data/select/Select_Text3.png");
+	m_UI_handle[SELECT_UI_IMAGE_TEXT4] = LoadGraph("data/select/Select_1P.png");
+	m_UI_handle[SELECT_UI_IMAGE_TEXT5] = LoadGraph("data/select/Select_2P.png");
 	
 	//キャラクター画像
 	//1P側
-	m_1PChara_handle[SELECT_CHARA_IMAGE_1] = LoadGraph("data/select/フライゴン.png");
-	m_1PChara_handle[SELECT_CHARA_IMAGE_2] = LoadGraph("data/select/ホイーガ.png");
-	m_1PChara_handle[SELECT_CHARA_IMAGE_3] = LoadGraph("data/select/Cursor.png");
+	m_1PChara_handle[SELECT_CHARA_IMAGE_1] = LoadGraph("data/select/Character_1.png");
+	m_1PChara_handle[SELECT_CHARA_IMAGE_2] = LoadGraph("data/select/Character_2.png");
+	m_1PChara_handle[SELECT_CHARA_IMAGE_3] = LoadGraph("data/select/Character_3.png");
 	//2P側
-	m_2PChara_handle[SELECT_CHARA_IMAGE_1] = LoadGraph("data/select/フライゴン.png");
-	m_2PChara_handle[SELECT_CHARA_IMAGE_2] = LoadGraph("data/select/ホイーガ.png");
-	m_2PChara_handle[SELECT_CHARA_IMAGE_3] = LoadGraph("data/select/Cursor.png");
+	m_2PChara_handle[SELECT_CHARA_IMAGE_1] = LoadGraph("data/select/Character_1.png");
+	m_2PChara_handle[SELECT_CHARA_IMAGE_2] = LoadGraph("data/select/Character_2.png");
+	m_2PChara_handle[SELECT_CHARA_IMAGE_3] = LoadGraph("data/select/Character_3.png");
 
 	//ステージ画像
-	m_Stage_handle[SELECT_STAGE_IMAGE_1] = LoadGraph("data/select/フライゴン.png");
-	m_Stage_handle[SELECT_STAGE_IMAGE_2] = LoadGraph("data/select/ホイーガ.png");
-	m_Stage_handle[SELECT_STAGE_IMAGE_3] = LoadGraph("data/select/Cursor.png");
+	m_Stage_handle[SELECT_STAGE_IMAGE_1] = LoadGraph("data/select/Stage1.png");
+	m_Stage_handle[SELECT_STAGE_IMAGE_2] = LoadGraph("data/select/Stage2.png");
+	m_Stage_handle[SELECT_STAGE_IMAGE_3] = LoadGraph("data/select/Stage3.png");
 }
 
 
@@ -166,8 +171,6 @@ void CSelectScene::Load()
 void CSelectScene::Draw()
 {
 	CDebugString::GetInstance()->Draw();
-
-	SetFontSize(48);
 
 	//背景(仮)
 	DrawBox(0, 0, 1280, 720, GetColor(0, 0, 255), true);
@@ -177,31 +180,37 @@ void CSelectScene::Draw()
 		//中央の区切りの線
 		DrawBox(0, 345, 1280, 375, GetColor(0, 0, 0), true);
 
+		//左上のテキスト
+		DrawGraph(0, 0, m_UI_handle[SELECT_UI_IMAGE_TEXT1], true);
+
 		if (!m_Is1PCharaSelected)
 		{
-			DrawRotaGraph(250, 172.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR1], true, true);
-			DrawRotaGraph(1030, 172.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR2], true, false);
+			DrawRotaGraph(250, (int)172.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR1], true, true);
+			DrawRotaGraph(1030, (int)172.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR2], true, false);
 		}
 		if (!m_Is2PCharaSelected)
 		{
-			DrawRotaGraph(250, 532.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR3], true, true);
-			DrawRotaGraph(1030, 532.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR4], true, false);
+			DrawRotaGraph(250, (int)532.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR3], true, true);
+			DrawRotaGraph(1030, (int)532.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR4], true, false);
 		}
 
+		//1Pテキスト
+		DrawRotaGraph(100, (int)172.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_TEXT4], true);
+		//2Pテキスト
+		DrawRotaGraph(100, (int)532.5f, 1.0f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_TEXT5], true);
 		//1P
-		DrawRotaGraph(640, 172.5f, 0.75f, 0.0f, m_1PChara_handle[m_1PChara_index], true);
+		DrawRotaGraph(640, (int)172.5f, 0.75f, 0.0f, m_1PChara_handle[m_1PChara_index], true);
 		//2P
-		DrawRotaGraph(640, 532.5f, 0.75f, 0.0f, m_2PChara_handle[m_2PChara_index], true);
-
-		DrawString(0, 0, "キャラクターセレクト", GetColor(255, 255, 255));
+		DrawRotaGraph(640, (int)532.5f, 0.75f, 0.0f, m_2PChara_handle[m_2PChara_index], true);
 	}
 	else if (m_Scene_index == SCREEN_STAGE)
 	{
+		//左上のテキスト
+		DrawGraph(0, 0, m_UI_handle[SELECT_UI_IMAGE_TEXT2], true);
+		DrawGraph(0, 100, m_UI_handle[SELECT_UI_IMAGE_TEXT3], true);
 		DrawRotaGraph(200, 360, 1.5f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR1], true, true);
 		DrawRotaGraph(1080, 360, 1.5f, 0.0f, m_UI_handle[SELECT_UI_IMAGE_CURSOR2], true, false);
 		DrawRotaGraph(640, 360, 1.0f, 0.0f, m_Stage_handle[m_Stage_index], true);
-		DrawString(0, 0, "ステージセレクト", GetColor(255, 255, 255));
-		DrawString(0, 50, "※1Pが操作", GetColor(255, 255, 255));
 	}
 }
 
@@ -463,12 +472,7 @@ void CSelectScene::ImageBlink(int Handle, float* p_Alpha, float BlinkSpeed, bool
 	float BlinkFlag = *p_BlinkFlag;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)Alpha);
-	for (int i = 0; i < PLAYER_NUM; i++)
-	{
-		DrawRotaGraph(640, 172.5f, 0.75f, 0.0f, Handle, true);
-		DrawRotaGraph(640, 172.5f, 0.75f, 0.0f, m_1PChara_handle[m_1PChara_index], true);
-		DrawRotaGraph(640, 532.5f, 0.75f, 0.0f, m_2PChara_handle[m_2PChara_index], true);
-	}	
+		
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, (int)Alpha);
 
 	if (!BlinkFlag)
