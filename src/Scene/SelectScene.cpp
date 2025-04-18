@@ -341,7 +341,19 @@ void CSelectScene::SelectChara()
 		//2P‘¤
 		if (PadInput::Push(1, XINPUT_BUTTON_A))
 		{
-			CData::GetInstance()->SetPlayerType(1, m_2PChara_index);
+			switch (m_2PChara_index)
+			{
+				case SELECT_CHARA_IMAGE_1:
+					CData::GetInstance()->SetPlayerType(1, 0);
+					break;
+				case SELECT_CHARA_IMAGE_2:
+					CData::GetInstance()->SetPlayerType(1, 1);
+					break;
+				case SELECT_CHARA_IMAGE_3:
+					CData::GetInstance()->SetPlayerType(1, 2);
+					break;
+			}
+
 			m_Is2PCharaSelected = true;
 		}
 	}
