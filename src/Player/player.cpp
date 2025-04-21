@@ -56,9 +56,15 @@ void Player::Load() {
 	bulletHandle = LoadGraph("data/play/player/bullet.png");
 	if (playerIndex == 0) {
 		imageHandle = LoadGraph("data/play/player/player1.png");
+		bgm = LoadSoundMem("data/play/player/p_bgm.mp3");
+		PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, true);
+		soundHandle[0] = LoadSoundMem("data/play/player/shot1.mp3");
+		soundHandle[1] = LoadSoundMem("data/play/player/damage1.mp3");
 	}
 	else {
 		imageHandle = LoadGraph("data/play/player/player2.png");
+		soundHandle[0] = LoadSoundMem("data/play/player/shot2.mp3");
+		soundHandle[1] = LoadSoundMem("data/play/player/damage2.mp3");
 	}
 	if (playerIndex == 0) {
 			pos.x = 100;
@@ -182,7 +188,8 @@ void Player::UiDraw() {
 
 //ƒvƒŒƒCƒ„[”jŠü
 void Player::Fin() {
-
+	InitSoundMem();
+	StopSoundMem(bgm);
 }
 
 
@@ -254,6 +261,7 @@ void Player::Bullet() {
 			//’e‚ğ”­Ë
 			for (int index = 0; index < PLAYER_BULLET_MAX; index++) {
 				if (bulletUseFlag[index]) { continue; }
+				PlaySoundMem(soundHandle[0], DX_PLAYTYPE_BACK, true);
 				bulletPos[index] = pos;
 				bulletRot[index] = rot;
 				bulletUseFlag[index] = true;
@@ -291,5 +299,4 @@ void Player::Bullet() {
 			}
 		}
 	}
-
 }

@@ -41,6 +41,10 @@ private:
 	float	maxSpeed;				//プレイヤー最大速度
 	float	rot;					//プレイヤー回転値
 	float	radian;					//プレイヤーの移動方向
+
+	//音
+	int bgm;
+	int soundHandle[2];
 	
 	//エイム関係
 	int aimHandle;			//エイムの画像
@@ -166,5 +170,8 @@ public:
 	int GetAttackPower() { return attackPower; }
 
 	//ダメージを受ける
-	void Damage(int attack_power) { HP -= attack_power; }
+	void Damage(int attack_power) { 
+		PlaySoundMem(soundHandle[1], DX_PLAYTYPE_BACK, true);
+		HP -= attack_power;
+	}
 };
