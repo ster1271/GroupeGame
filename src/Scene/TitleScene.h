@@ -47,8 +47,14 @@ private:
 	int m_ArrivalTime;	// 画像の到達時間
 	int m_PlayerIndex[2];
 	float m_alpha;
+	float m_FadeAlpha;
+	int m_TitleBackGroundHndle;
+	int m_PleaseButtobnHandle;
+
+	int Music;
 	
 	bool m_BlinkFlag;
+	bool m_FadeBlinkFlag;
 
 	// デバック用の変数
 	float m_PosX;
@@ -99,7 +105,9 @@ private:
 	// p_BlinkFlag	= 点滅のフラグ(Falseで透明になっていく)
 	// AddPace		= 値に多いほど不透明になるのが早くなる
 	// SubPace		= 値が多いほど透明になるのが早くなる
-	void ImageBlink(int Handle, float* p_Alpha, float BlinkSpeed, bool* p_BlinkFlag, float AddPace, float SubPace);
+	void ImageBlink(int Pos_x, int Pos_Y,int Handle, float* p_Alpha, float BlinkSpeed, bool* p_BlinkFlag, float AddPace, float SubPace);
+
+	void ImageBlinkBox(int Pos_x, int Pos_Y,int SizeX,int SizeY, float* p_Alpha, float BlinkSpeed, bool* p_BlinkFlag, float AddPace, float SubPace);
 
 	void ImageMove(float StartPositionX, float StartPositionY, float EndPositionX, float EndPositionY,
 					float MoveSpeed,int time, float* p_MovePositionX, float* p_MovePositionY);

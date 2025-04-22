@@ -31,7 +31,15 @@ private:
 
 	bool m_WinFlag;
 	int m_CursorNumber;
+	bool m_CursorControl;
 	bool m_IsDecideScene;
+
+	int Player1Win_Handle;
+	int Player2Win_Handle;
+
+	int Rappa;
+
+	bool RappaFlag;
 
 	void SceneSelect();
 

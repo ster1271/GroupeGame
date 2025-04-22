@@ -5,6 +5,9 @@
 //#define CURSOR_SELECT		(1)							// セレクトカーソル
 //#define CURSOR_PLAY			(2)							// プレイカーソル
 
+#define PLAYER1WIN_HANDLE ("data/result/Player1Win.png")
+#define PLAYER2WIN_HANDLE ("data/result/Player2Win.png")
+
 //コンストラクタ
 CResultScene::CResultScene()
 {
@@ -61,7 +64,14 @@ void CResultScene::Init()
 {
 
 	m_WinFlag = false;
+	m_CursorControl = false;
 	m_CursorNumber = 0;
+	Rappa = LoadSoundMem("data/result/ラッパのファンファーレ.mp3");
+	ChangeVolumeSoundMem(255 * 60 / 100, Rappa);
+	RappaFlag = false;
+
+	Player1Win_Handle = LoadGraph(PLAYER1WIN_HANDLE);
+	Player2Win_Handle = LoadGraph(PLAYER2WIN_HANDLE);
 
 }
 
@@ -70,6 +80,7 @@ void CResultScene::Init()
 void CResultScene::Exit()
 {
 	eSceneID = RESULT_SCENE_INIT;
+	InitSoundMem();
 }
 
 
@@ -78,6 +89,7 @@ void CResultScene::Load()
 {
 
 	m_WinFlag = CData::GetInstance()->GetPlayerWin();
+	RappaFlag = true;
 
 }
 
@@ -85,7 +97,13 @@ void CResultScene::Load()
 void CResultScene::Step()
 {
 
-	if (CInput::IsKeyPush(KEY_INPUT_DOWN))
+	if (RappaFlag)
+	{
+		PlaySoundMem(Rappa, DX_PLAYTYPE_BACK, true);
+		RappaFlag = false;
+	}
+
+	if (CInput::IsKeyPush(KEY_INPUT_DOWN) || PadInput::GetLY(0) > 100 && !m_CursorControl)
 	{
 		m_CursorNumber--;
 
@@ -93,9 +111,11 @@ void CResultScene::Step()
 		{
 			m_CursorNumber = CURSOR_NUMBER_NUM - 1;
 		}
+
+		m_CursorControl = true;
 	}
 
-	else if (CInput::IsKeyPush(KEY_INPUT_UP))
+	else if (CInput::IsKeyPush(KEY_INPUT_UP) || PadInput::GetLY(0) < -100 && !m_CursorControl)
 	{
 		m_CursorNumber++;
 
@@ -103,6 +123,13 @@ void CResultScene::Step()
 		{
 			m_CursorNumber = 0;
 		}
+
+		m_CursorControl = true;
+	}
+
+	else if (PadInput::GetLY(0) <= 10 && PadInput::GetLY(0) >= -10 && m_CursorControl)
+	{
+		m_CursorControl = false;
 	}
 
 	//シーン終了処理
@@ -135,10 +162,12 @@ void CResultScene::Draw()
 	if (m_WinFlag)
 	{
 		DrawFormatString(0, 30, COLOR, "1Pの勝ちです");
+		DrawGraph(0, 0, Player1Win_Handle, false);
 	}
 	else
 	{
 		DrawFormatString(0, 30, COLOR, "2Pの勝ちです");
+		DrawGraph(0, 0, Player2Win_Handle, false);
 	}
 
 	switch (m_CursorNumber)
