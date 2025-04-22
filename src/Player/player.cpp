@@ -67,6 +67,8 @@ void Player::Load() {
 		soundHandle[0] = LoadSoundMem("data/play/player/shot2.mp3");
 		soundHandle[1] = LoadSoundMem("data/play/player/damage2.mp3");
 	}
+	soundHandle[2]= LoadSoundMem("data/play/player/reload.mp3");
+	soundHandle[3] = LoadSoundMem("data/play/player/reload2.mp3");
 	if (playerIndex == 0) {
 			pos.x = 100;
 		}
@@ -286,6 +288,7 @@ void Player::Bullet() {
 	if (PLAYER_BULLET_MAX > bulletCount) {
 		if (PadInput::Push(playerIndex, XINPUT_BUTTON_X)|| bulletCount <= 0) {
 			bulletReloadFlag = true;
+			PlaySoundMem(soundHandle[2], DX_PLAYTYPE_BACK, true);
 		}
 	}
 
@@ -296,7 +299,7 @@ void Player::Bullet() {
 			bulletReloadCount = 0;
 			bulletReloadFlag = false;
 			bulletCount = PLAYER_BULLET_MAX;
-
+			PlaySoundMem(soundHandle[3], DX_PLAYTYPE_BACK, true);
 			//’e‚ðƒŠƒZƒbƒg
 			for (int index = 0; index < PLAYER_BULLET_MAX; index++) {
 				bulletUseFlag[index] = false;

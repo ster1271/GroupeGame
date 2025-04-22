@@ -44,7 +44,7 @@ private:
 
 	//音
 	int bgm;
-	int soundHandle[2];
+	int soundHandle[4];
 	
 	//エイム関係
 	int aimHandle;			//エイムの画像
