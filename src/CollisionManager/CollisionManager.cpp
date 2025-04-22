@@ -71,7 +71,21 @@ void CCollisionManager::PlayerToMap(Player* player, CMap map) {
 						p_p.y += (m_p.y + 32) - p_p.y;
 					}
 				}
+			}
+		}
+		//ƒ}ƒbƒv‚ğ‰ñ‚·
+		for (int MapIndex = 0; MapIndex != map.MapTipList.size(); MapIndex++) {
 
+			//°‚Í”»’è‚µ‚È‚¢
+			if (map.MapTipList[MapIndex].Type_Id == 2 || map.MapTipList[MapIndex].Type_Id == 6 || map.MapTipList[MapIndex].Type_Id == 4) {
+				continue;
+			}
+
+			//’·‚¢‚Ì‚Å‘ã“ü
+			VECTOR m_p = map.MapTipList[MapIndex].cPos;
+
+			//“–‚½‚è”»’è‚ğ‚Æ‚é
+			if (CCollision::IsHitRect(p_p.x, p_p.y, 32, 32, m_p.x, m_p.y, 32, 32)) {
 				//x‚Ì‚İ”»’è
 				if (CCollision::IsHitRect(p_p.x, p_p.y, 32, 32, m_p.x, m_p.y, 32, 32)) {
 
