@@ -97,6 +97,8 @@ private:
 	bool m_BlinkFlag;
 	bool m_ExpantionFlag;	//拡大フラグ
 
+	int soundHandle[3];
+
 public:
 	//コンストラクタ・デストラクタ
 	CSelectScene();

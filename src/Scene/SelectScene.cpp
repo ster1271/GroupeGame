@@ -131,6 +131,9 @@ void CSelectScene::Init()
 void CSelectScene::Exit()
 {
 	eSceneID = SELECT_SCENE_INIT;
+	
+	StopSoundMem(soundHandle[0]);
+	InitSoundMem();
 }
 
 
@@ -164,6 +167,13 @@ void CSelectScene::Load()
 	m_Stage_handle[SELECT_STAGE_IMAGE_1] = LoadGraph("data/select/Stage1.png");
 	m_Stage_handle[SELECT_STAGE_IMAGE_2] = LoadGraph("data/select/Stage2.png");
 	m_Stage_handle[SELECT_STAGE_IMAGE_3] = LoadGraph("data/select/Stage3.png");
+
+
+	soundHandle[0] = LoadSoundMem("data/select/s_bgm.mp3");
+	soundHandle[1] = LoadSoundMem("data/select/move.mp3");
+	soundHandle[2] = LoadSoundMem("data/select/select.mp3");
+	ChangeVolumeSoundMem(255 * 60 / 100, soundHandle[0]);
+	PlaySoundMem(soundHandle[0], DX_PLAYTYPE_LOOP, true);
 }
 
 
@@ -275,6 +285,7 @@ void CSelectScene::ChangeCharaImage()
 			{
 				m_1PChara_index++;
 			}
+			PlaySoundMem(soundHandle[1], DX_PLAYTYPE_BACK, true);
 		}
 		//スティックを左に
 		else if (PadInput::GetPushLX(0) < 0)
@@ -287,6 +298,7 @@ void CSelectScene::ChangeCharaImage()
 			{
 				m_1PChara_index--;
 			}
+			PlaySoundMem(soundHandle[1], DX_PLAYTYPE_BACK, true);
 		}
 	}
 	
@@ -304,6 +316,7 @@ void CSelectScene::ChangeCharaImage()
 			{
 				m_2PChara_index++;
 			}
+			PlaySoundMem(soundHandle[1], DX_PLAYTYPE_BACK, true);
 		}
 		//スティックを左に
 		else if (PadInput::GetPushLX(1) < 0)
@@ -316,6 +329,7 @@ void CSelectScene::ChangeCharaImage()
 			{
 				m_2PChara_index--;
 			}
+			PlaySoundMem(soundHandle[1], DX_PLAYTYPE_BACK, true);
 		}
 	}
 }
@@ -340,7 +354,7 @@ void CSelectScene::SelectChara()
 					CData::GetInstance()->SetPlayerType(0, 2);
 					break;
 			}
-						
+			PlaySoundMem(soundHandle[2], DX_PLAYTYPE_BACK, true);
 			m_Is1PCharaSelected = true;
 		}
 	}
@@ -362,7 +376,7 @@ void CSelectScene::SelectChara()
 					CData::GetInstance()->SetPlayerType(1, 2);
 					break;
 			}
-
+			PlaySoundMem(soundHandle[2], DX_PLAYTYPE_BACK, true);
 			m_Is2PCharaSelected = true;
 		}
 	}
@@ -405,6 +419,7 @@ void CSelectScene::ChangeStageImage()
 		{
 			m_Stage_index++;
 		}
+		PlaySoundMem(soundHandle[1], DX_PLAYTYPE_BACK, true);
 	}
 	//スティックを左に
 	else if (PadInput::GetPushLX(0) < 0)
@@ -417,6 +432,7 @@ void CSelectScene::ChangeStageImage()
 		{
 			m_Stage_index--;
 		}
+		PlaySoundMem(soundHandle[1], DX_PLAYTYPE_BACK, true);
 	}
 }
 
@@ -440,7 +456,7 @@ void CSelectScene::SelectStage()
 					CData::GetInstance()->SetMapID(MAP_TYPE_02);
 					break;
 			}
-			
+			PlaySoundMem(soundHandle[2], DX_PLAYTYPE_BACK, true);
 			m_Is1PCharaSelected = true;
 		}
 	}	
