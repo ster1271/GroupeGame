@@ -57,6 +57,7 @@ void Player::Load() {
 	if (playerIndex == 0) {
 		imageHandle = LoadGraph("data/play/player/player1.png");
 		bgm = LoadSoundMem("data/play/player/p_bgm.mp3");
+		ChangeVolumeSoundMem(255 * 60/100, bgm);
 		PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, true);
 		soundHandle[0] = LoadSoundMem("data/play/player/shot1.mp3");
 		soundHandle[1] = LoadSoundMem("data/play/player/damage1.mp3");
@@ -188,8 +189,11 @@ void Player::UiDraw() {
 
 //ƒvƒŒƒCƒ„[”jŠü
 void Player::Fin() {
-	InitSoundMem();
 	StopSoundMem(bgm);
+	InitSoundMem();
+	for (int index = 0;index < PLAYER_BULLET_MAX;index++) {
+		bulletUseFlag[index] = false;
+	}
 }
 
 

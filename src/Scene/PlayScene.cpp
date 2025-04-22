@@ -65,6 +65,8 @@ void CPlayScene::Init()
 void CPlayScene::Exit()
 {
 	cMap.Exit();
+	player[0].Fin();
+	player[1].Fin();
 	eSceneID = PLAY_SCENE_INIT;
 }
 
